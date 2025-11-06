@@ -1,32 +1,22 @@
 package com.mypetclinic.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("vets")
-public class Vet {
+@TableName("specialties")
+public class Specialty {
 
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    private String firstName;
-
-    private String lastName;
-
-    @TableField(exist = false)
-    private Set<Specialty> specialties;
+    private String name;
 
     public Boolean isNew() {
         return id == null;
