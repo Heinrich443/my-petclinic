@@ -32,4 +32,12 @@ public class Owner {
 
     @TableField(exist = false)
     private List<Pet> pets = new ArrayList<>();
+
+    /**
+     * Thymeleaf需要
+     * @return
+     */
+    public Boolean isNew() {
+        return id == null;
+    }
 }

@@ -44,6 +44,11 @@
           <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
+        <!--<dependency>
+          <groupId>jakarta.xml.bind</groupId>
+          <artifactId>jakarta.xml.bind-api</artifactId>
+        </dependency>-->
+
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>

@@ -1,5 +1,6 @@
 package com.mypetclinic.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mypetclinic.model.Owner;
 
 import java.util.List;
@@ -8,7 +9,7 @@ public interface OwnerService {
 
     Owner showOwner(Integer id);
 
-    List<Owner> getPage(int page, Owner owner);
+    Page<Owner> getPage(int page, Owner owner);
 
     Boolean createOwner(Owner owner);
 

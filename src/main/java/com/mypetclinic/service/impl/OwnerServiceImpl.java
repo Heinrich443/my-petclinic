@@ -9,8 +9,6 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class OwnerServiceImpl implements OwnerService {
 
@@ -24,8 +22,14 @@ public class OwnerServiceImpl implements OwnerService {
         return mapper.selectById(id);
     }
 
+    /**
+     * 分页查询+条件查询
+     * @param currentPage
+     * @param owner
+     * @return
+     */
     @Override
-    public List<Owner> getPage(int currentPage, Owner owner) {
+    public Page<Owner> getPage(int currentPage, Owner owner) {
         String lastName = owner.getLastName();
         Page<Owner> page = new Page<>(currentPage, PAGESIZE);
         LambdaQueryWrapper<Owner> lqw = new LambdaQueryWrapper<>();
@@ -33,13 +37,25 @@ public class OwnerServiceImpl implements OwnerService {
         return mapper.selectPage(page, lqw);
     }
 
+    /**
+     * 新增主人
+     * @param owner
+     * @return
+     */
     @Override
     public Boolean createOwner(Owner owner) {
-        return null;
+        int count = mapper.insert(owner);
+        return count > 0;
     }
 
+    /**
+     * 修改主人
+     * @param owner
+     * @return
+     */
     @Override
     public Boolean editOwner(Owner owner) {
-        return null;
+        int count = mapper.updateById(owner);
+        return count > 0;
     }
 }
