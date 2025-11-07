@@ -1,7 +1,11 @@
 package com.mypetclinic.config;
 
+import com.mypetclinic.model.PetTypeFormatter;
+import com.mypetclinic.repository.PetTypeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -23,6 +27,13 @@ import java.util.Locale;
 @Configuration
 @SuppressWarnings("unused")
 public class WebConfiguration implements WebMvcConfigurer {
+
+	@Autowired
+	private PetTypeFormatter petTypeFormatter;
+
+	public WebConfiguration(PetTypeFormatter petTypeFormatter) {
+		this.petTypeFormatter = petTypeFormatter;
+	}
 
 	/**
 	 * Uses session storage to remember the user’s language setting across requests.
@@ -57,4 +68,9 @@ public class WebConfiguration implements WebMvcConfigurer {
 		registry.addInterceptor(localeChangeInterceptor());
 	}
 
+	@Override
+	public void addFormatters(FormatterRegistry registry) {
+		WebMvcConfigurer.super.addFormatters(registry);
+		registry.addFormatter(petTypeFormatter);
+	}
 }
