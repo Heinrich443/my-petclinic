@@ -5,6 +5,7 @@ import com.mypetclinic.model.Owner;
 import com.mypetclinic.model.Pet;
 import com.mypetclinic.service.OwnerService;
 import com.mypetclinic.service.PetService;
+import com.mypetclinic.service.VisitService;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,9 @@ public class OwnerController {
 
     @Autowired
     private PetService petService;
+
+    @Autowired
+    private VisitService visitService;
 
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
 
@@ -54,6 +58,7 @@ public class OwnerController {
     public ModelAndView showOwner(@PathVariable("ownerId") Integer ownerId) {
         Owner owner = service.showOwner(ownerId);
         List<Pet> pets = petService.getPets(ownerId);
+        pets.forEach(pet -> pet.setVisits(visitService.getVisits(pet.getId())));
         owner.setPets(pets);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(owner);
