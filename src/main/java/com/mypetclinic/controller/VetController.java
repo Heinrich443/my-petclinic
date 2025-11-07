@@ -7,11 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Controller
-@RequestMapping
 public class VetController {
 
     @Autowired
@@ -25,6 +26,17 @@ public class VetController {
     public String showVetList(@RequestParam(defaultValue = "1") int page, Model model) {
         // 向前端传递参数如下：listVets totalPages currentPage totalItems
         Page<Vet> vetPage = service.findAll(page);
-        return "";
+        model.addAttribute("listVets", vetPage.getRecords());
+        model.addAttribute("totalPages", vetPage.getPages());
+        model.addAttribute("currentPage", vetPage.getCurrent());
+        model.addAttribute("totalItems", vetPage.getTotal());
+
+        return "vets/vetList";
+    }
+
+    @GetMapping("/vets")
+    public @ResponseBody List<Vet> showResourcesVetList() {
+        Page<Vet> page = service.findAll(1);
+        return page.getRecords();
     }
 }
