@@ -51,4 +51,10 @@ public class PetType {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
+    @Override
+	public String toString() {
+		String name = this.getName();
+		return (name != null) ? name : "<null>";
+	}
 }

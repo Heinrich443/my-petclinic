@@ -2,7 +2,9 @@ package com.mypetclinic.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mypetclinic.model.Owner;
+import com.mypetclinic.model.Pet;
 import com.mypetclinic.service.OwnerService;
+import com.mypetclinic.service.PetService;
 import org.jspecify.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +16,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/owners")
 public class OwnerController {
 
     @Autowired
     private OwnerService service;
+
+    @Autowired
+    private PetService petService;
 
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
 
@@ -46,6 +53,8 @@ public class OwnerController {
     @GetMapping("/{ownerId}")
     public ModelAndView showOwner(@PathVariable("ownerId") Integer ownerId) {
         Owner owner = service.showOwner(ownerId);
+        List<Pet> pets = petService.getPets(ownerId);
+        owner.setPets(pets);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject(owner);
         modelAndView.setViewName("owners/ownerDetails");

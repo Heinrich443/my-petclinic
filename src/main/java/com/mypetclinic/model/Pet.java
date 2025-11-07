@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -28,7 +30,10 @@ public class Pet {
     private Integer typeId;
 
     @TableField(exist = false)
-    private PetType petType;
+    private PetType type;
+
+    @TableField(exist = false)
+    private Set<Visit> visits = new LinkedHashSet<>();
 
     public Boolean isNew() {
         return id == null;

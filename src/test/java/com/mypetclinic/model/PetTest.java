@@ -13,7 +13,6 @@ public class PetTest {
         Pet pet = new Pet();
         pet.setId(1);
         pet.setName("aaa");
-        pet.setPetType(new PetType(1, "cat"));
         pet.setBirthDate(LocalDate.now());
         System.out.println(pet);
     }
